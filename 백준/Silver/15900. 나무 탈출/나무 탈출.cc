@@ -19,25 +19,21 @@ int main(){
 		tree[a].push_back(b);
 		tree[b].push_back(a);
 	}
-	visit[1] = true;
-	for(int i=0;i<tree[1].size();i++){
-		int t = tree[1][i];
-		visit[t] = true;
-		dfs(tree, visit, t, 0);
-	}
+	dfs(tree, visit, 1, 0);
 	cout << ((sum%2 == 1)?"Yes":"No");
 	return 0;
 }
 
 void dfs(vector<vector<int>>& tree, vector<bool>& visit, int n, int cnt){
+	visit[n] = true;
 	bool flag = true;
-	cnt++;
 	for(int i=0;i<tree[n].size();i++){
 		int t = tree[n][i];
 		if(visit[t]) continue;
 		flag = false;
-		visit[t] = true;
+		cnt++;
 		dfs(tree, visit, t, cnt);
+		cnt--;
 	}
 	if(flag) sum += cnt;
 }
