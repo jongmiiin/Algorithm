@@ -2,7 +2,6 @@
 
 using namespace std;
 
-int chess[304][304];
 bool flag[304][304];
 
 int dx[] = {2, 2, 1, 1, -1, -1, -2, -2};
