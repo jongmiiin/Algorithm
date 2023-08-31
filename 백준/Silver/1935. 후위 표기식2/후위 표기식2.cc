@@ -30,9 +30,6 @@ int main(){
 	}
 	cout << fixed;
 	cout.precision(2);
-	while(!stk.empty()){
-		cout << stk.top() << endl;
-		stk.pop();
-	}
+	cout << stk.top() << endl;
 	return 0;
 }
