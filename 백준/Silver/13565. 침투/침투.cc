@@ -9,7 +9,7 @@ bool flag[1004][1004];
 int dx[] = {0, 0, 1, -1};
 int dy[] = {1, -1, 0, 0};
 
-void dfs(int y, int x);
+void bfs(int y, int x);
 
 int main(){
 	cin >> m >> n;
@@ -17,7 +17,7 @@ int main(){
 		for(int j=0;j<n;j++)
 			scanf("%1d", &a[i][j]);
 	for(int i=0;i<n;i++)
-		if(a[0][i] == 0 && !flag[0][i]) dfs(0, i);
+		if(a[0][i] == 0 && !flag[0][i]) bfs(0, i);
 	bool is_trans = false;
 	for(int i=0;i<n;i++)
 		if(flag[m-1][i]) is_trans = true;
@@ -25,11 +25,21 @@ int main(){
 	return 0;
 }
 
-void dfs(int y, int x){
+void bfs(int y, int x){
+	queue<pair<int, int>> q;
+	q.push({y, x});
 	flag[y][x] = true;
-	for(int i=0;i<4;i++){
-		int nx = x+dx[i], ny = y+dy[i];
-		if(nx<0 || nx>=n || ny<0 || ny>=m || flag[ny][nx] || a[ny][nx]) continue;
-		dfs(ny, nx);
+	while(!q.empty()){
+		int size = q.size();
+		while(size--){
+			int y = q.front().first, x = q.front().second;
+			q.pop();
+			for(int i=0;i<4;i++){
+				int ny = y+dy[i], nx = x+dx[i];
+				if(ny<0 || ny>=m || nx<0 || nx>=n || flag[ny][nx] || a[ny][nx]) continue;
+				flag[ny][nx] = true;
+				q.push({ny, nx});
+			}
+		}
 	}
 }
