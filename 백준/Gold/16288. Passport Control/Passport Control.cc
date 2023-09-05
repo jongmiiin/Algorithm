@@ -15,7 +15,10 @@ int main(){
 	reverse(judge.begin(), judge.end());
 	vector<stack<int>> v(k);
 	for(int i=0;i<n;i++){
-		if(i==0) v[0].push(judge[0]);
+		if(i==0){
+			v[0].push(judge[0]);
+			// cout << /*judge[i]*/ v[inx].top() << " ";
+		}
 		else{
 			bool flag = false;
 			for(int j=0;j<k;j++){
@@ -31,25 +34,6 @@ int main(){
 			}
 		}
 	}
-	int cnt = 1;
-	while(1){
-		bool find = false;
-		for(int i=0;i<k;i++){
-			if(!v[i].empty() && v[i].top() == cnt){
-				cnt++;
-				v[i].pop();
-				find = true;
-				break;
-			}
-		}
-		if(!find){
-			cout << "NO";
-			return 0;
-		}
-		if(cnt == n){
-			cout << "YES";
-			return 0;
-		}
-	}
+	cout << "YES";
 	return 0;
 }
