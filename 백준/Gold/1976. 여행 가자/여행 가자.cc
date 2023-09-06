@@ -2,28 +2,39 @@
 
 using namespace std;
 
-int n, m, ex, now;
-int city[204][204];
-void floyd();
+bool check[204][204];
+
+int parent[204];
+int p_rank[204];
+
+void make_set(int u);
+void union_set(int u, int v);
+int find_set(int u);
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
+	int n, m, ex, now;
 	cin >> n >> m;
 	for(int i=1;i<=n;i++)
+		make_set(i);
+	for(int i=1;i<=n;i++)
 		for(int j=1;j<=n;j++){
-			cin >> city[i][j];
-			if(city[i][j] == 0 && i != j) city[i][j] = 1e9;
-			if(i==j) city[i][j] = 1;
+			int t;
+			cin >> t;
+			if(t == 1 && !check[i][j]){
+				check[i][j] = true;
+				check[j][i] = true;
+				union_set(i, j);
+			}
 		}
-	floyd();
 	bool flag = false;
 	for(int i=0;i<m;i++){
 		if(i==0) cin >> ex;
 		else{
 			cin >> now;
-			if(city[ex][now] == 1e9) flag = true;
+			if(find_set(ex) != find_set(now)) flag = true;
 			ex = now;
 		}
 	}
@@ -31,11 +42,22 @@ int main(){
 	return 0;
 }
 
-void floyd(){
-	for(int mid=1;mid<=n;mid++)
-		for(int start=1;start<=n;start++)
-			for(int end=1;end<=n;end++){
-				if(city[start][mid] == 1e9 || city[mid][end] == 1e9) continue;
-				city[start][end] = min(city[start][end], city[start][mid]+city[mid][end]);
-			}
+void make_set(int u){
+	parent[u] = u;
+	p_rank[u] = 0;
+}
+
+void union_set(int u, int v){
+	int u_root = find_set(u);
+	int v_root = find_set(v);
+	if(p_rank[u_root]>p_rank[v_root]) parent[v_root] = u_root;
+	else{
+		parent[u_root] = v_root;
+		if(p_rank[u_root] == p_rank[v_root]) p_rank[v_root]++;
+	}
+}
+
+int find_set(int u){
+	if(u!=parent[u]) return find_set(parent[u]);
+	return parent[u];
 }
