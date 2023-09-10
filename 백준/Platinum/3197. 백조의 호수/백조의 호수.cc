@@ -57,11 +57,10 @@ void merge_bfs(){
 	while(!q.empty()){
 		int y = q.front().first, x = q.front().second;
 		q.pop();
-		int t = find_set(lake_num[y][x]);
 		for(int i=0;i<4;i++){
 			int ny = y+dy[i], nx = x+dx[i];
 			if(ny<0 || ny>=n || nx<0 || nx>=m) continue;
-			if(find_set(lake_num[ny][nx]) == t) continue;
+			if(find_set(lake_num[ny][nx]) == find_set(lake_num[y][x])) continue;
 			if(lake[ny][nx] == '.' || lake[ny][nx] == 'L') q.push({ny, nx});
 			if(lake[ny][nx] == 'X') x_change.push({ny, nx});
 			union_set(lake_num[ny][nx], lake_num[y][x]);
@@ -75,11 +74,10 @@ void change(){
 		int y = x_change.front().first, x = x_change.front().second;
 		lake[y][x] = '.';
 		x_change.pop();
-		int t = find_set(lake_num[y][x]);
 		for(int i=0;i<4;i++){
 			int ny = y+dy[i], nx = x+dx[i];
 			if(ny<0 || ny>=n || nx<0 || nx>=m || lake[ny][nx] == 'X') continue;
-			if(find_set(lake_num[ny][nx]) == t) continue;
+			if(find_set(lake_num[ny][nx]) == find_set(lake_num[y][x])) continue;
 			if(lake[ny][nx] == '.') union_set(lake_num[ny][nx], lake_num[y][x]);
 		}
 		q.push({y, x});
@@ -102,6 +100,6 @@ void union_set(int u, int v){
 }
 
 int find_set(int u){
-	if(u!=parent[u]) return parent[u]=find_set(parent[u]);
+	if(u!=parent[u]) return find_set(parent[u]);
 	return parent[u];
 }
