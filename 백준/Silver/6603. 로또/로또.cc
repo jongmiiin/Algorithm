@@ -3,8 +3,7 @@
 using namespace std;
 
 int n;
-vector<int> ans;
-int arr[14];
+int arr[14], ans[14];
 void rec(int inx, int lev);
 
 int main(){
@@ -30,8 +29,7 @@ void rec(int inx, int lev){
 		return;
 	}
 	for(int i=inx;i<n;i++){
-		ans.push_back(arr[i]);
+		ans[lev] = arr[i];
 		rec(i+1, lev+1);
-		ans.erase(ans.end()-1);
 	}
 }
