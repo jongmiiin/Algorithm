@@ -25,21 +25,8 @@ int main(){
 				bool flag = true;
 				for(int t=0;t<n;t++){
 					int s = 0, b = 0;
-					// strike
-					if(i == sample[t][0]) s++;
-					if(j == sample[t][1]) s++;
-					if(k == sample[t][2]) s++;
-					
-					// ball
-					if(j == sample[t][0]) b++;
-					if(k == sample[t][0]) b++;
-
-					if(i == sample[t][1]) b++;
-					if(k == sample[t][1]) b++;
-
-					if(i == sample[t][2]) b++;
-					if(j == sample[t][2]) b++;
-
+					s += (i == sample[t][0])+(j == sample[t][1])+(k == sample[t][2]);
+					b += (j == sample[t][0])+(k == sample[t][0])+(i == sample[t][1])+(k == sample[t][1])+(i == sample[t][2])+(j == sample[t][2]);
 					if(log[t].first != s || log[t].second != b) flag = false;
 				}
 				if(flag) answer++;
