@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int n, s, sum, cnt, ans;
+int n, s, sum, ans;
 int arr[24];
 void f(int idx, int lev, int mx_lev);
 
@@ -13,24 +13,20 @@ int main(){
 	cin >> n >> s;
 	for(int i=0;i<n;i++)
 		cin >> arr[i];
-	for(int i=1;i<=n;i++){
+	for(int i=1;i<=n;i++)
 		f(0, 0, i);
-		sum = 0;
-	}
 	cout << ans;
 	return 0;
 }
 
 void f(int idx, int lev, int mx_lev){
 	if(lev == mx_lev){
-		if(cnt && sum == s) ans++;
+		if(sum == s) ans++;
 		return;
 		}
 	for(int i=idx;i<n;i++){
 		sum += arr[i];
-		cnt++;
 		f(i+1, lev+1, mx_lev);
 		sum -= arr[i];
-		cnt--;
 	} 
 }
