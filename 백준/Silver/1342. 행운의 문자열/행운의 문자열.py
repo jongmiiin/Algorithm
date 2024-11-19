@@ -1,31 +1,30 @@
 s = input()
-check = [False] * len(s)
 arr = []
-cnt = 0
-
-def fac(x):
-	if x == 0:
-		return 1
-	return fac(x-1)*x
+ans = 0
 
 def f(lev):
-	global s, check, arr, cnt
+	global s, arr, ans, alps, alps_cnt
 	if lev == len(s):
-		flag = True
-		for i in range(len(arr)-1):
-			if arr[i]==arr[i+1]:
-				flag = False
-		if flag:
-			cnt+=1
-	else:
-		for i in range(len(s)):
-			if not check[i]:
-				check[i] = True
-				arr.append(s[i])
-				f(lev+1)
-				arr.pop()
-				check[i] = False
+		ans += 1
+		return
+	for alp in alps:
+		if alps_cnt[alp] == 0:
+			continue
+		if not arr or arr[-1] != alp:
+			alps_cnt[alp] -= 1
+			arr.append(alp)
+			f(lev+1)
+			alps_cnt[alp] += 1
+			arr.pop()
+
+alps = set()
+alps_cnt = dict()
+
+for c in s:
+	alps.add(c)
+	if c not in alps_cnt:
+		alps_cnt[c] = 0
+	alps_cnt[c] += 1
+
 f(0)
-for i in range(ord('a'), ord('z')+1):
-	cnt//=fac(s.count(chr(i)))
-print(cnt)
+print(ans)
