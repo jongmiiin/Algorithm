@@ -1,25 +1,18 @@
 n = int(input())
+ans = []
+check = [False] * (n+1)
 
-check = [False] * 10
-choose = []
-
-def permu(lev):
+def f(lev):
+	global ans, n, check
 	if lev == n:
-		for i in choose:
-			print(i, end=' ')
-		print()
-		return
+		print(*ans)
+	else:
+		for i in range(1, n+1):
+			if not check[i]:
+				check[i] = True
+				ans.append(i)
+				f(lev+1)
+				ans.pop()
+				check[i] = False
 
-	for i in range(1, n+1):
-		if check[i] == True:
-			continue
-
-		choose.append(i)
-		check[i] = True
-
-		permu(lev+1)
-
-		check[i] = False
-		choose.pop()
-
-permu(0)
+f(0)
