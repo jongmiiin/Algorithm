@@ -31,7 +31,6 @@ int solution(vector<int> nums) {
     prime_search(mx);
     for(int i=2;i<=mx;i++)
         if(!flag[i]) prime.push_back(i);
-    for(int i=0;i<prime.size();i++) cout << prime[i] << endl;
     for(int i=0;i<len-2;i++){
         for(int j=i+1;j<len-1;j++){
             for(int k=j+1;k<len;k++){
