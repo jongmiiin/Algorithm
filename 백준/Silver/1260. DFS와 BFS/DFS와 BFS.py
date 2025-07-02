@@ -9,35 +9,32 @@ for _ in range(m):
 	arr[a].append(b)
 	arr[b].append(a)
 
-for i in range(1, n+1):
-	arr[i].sort()
+for i in range(n+1):
+	arr[i] = sorted(arr[i])
 
-def dfs(v):
-	global arr, check
-	if check[v]:
-		return
-	check[v] = True
+check = [False] * (n+1)
+
+def dfs(arr, check, v):
 	print(v, end=" ")
+	check[v] = True
 	for i in arr[v]:
-		dfs(i)
+		if check[i] == False:
+			dfs(arr, check, i)
 
-def bfs(vv):
-	global arr, check
+def bfs(arr, check, v):
 	q = deque()
-	q.append(vv)
-	check[vv] = True
+	q.append(v)
+	check[v] = True
+
 	while q:
 		now = q.popleft()
 		print(now, end=" ")
 		for i in arr[now]:
-			if check[i]:
-				continue
-			q.append(i)
-			check[i] = True
+			if check[i] == False:
+				q.append(i)
+				check[i] = True
 
-check = [False] * (n+1)
-dfs(v)
+dfs(arr, check, v)
 print()
-
 check = [False] * (n+1)
-bfs(v)
+bfs(arr, check, v)
