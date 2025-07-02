@@ -47,11 +47,12 @@ void bfs(vector<vector<int>> &arr, vector<bool> &check, int v){
 	while(!q.empty()){
 		int now = q.front();
 		q.pop();
-		if(!check[now]) cout << now << " ";
+		cout << now << " ";
 		check[now] = true;
 		for(int i=0;i<arr[now].size();i++){
 			if(!check[arr[now][i]]){
 				q.push(arr[now][i]);
+				check[arr[now][i]] = true;
 			}
 		}
 	}
