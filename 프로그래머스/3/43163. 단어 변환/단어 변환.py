@@ -16,10 +16,7 @@ def solution(begin, target, words):
     while q:
         now, cnt = q.popleft()
         if now == target:
-            answer = min(answer, cnt)
-            continue
-        if cnt >= len(words):
-            continue
+            return cnt
         for word in words:
             if is_ok(now, word) and not word in visited:
                 visited.add(word)
