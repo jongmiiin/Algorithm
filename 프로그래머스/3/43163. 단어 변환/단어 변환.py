@@ -1,8 +1,6 @@
 from collections import deque
 
 def solution(begin, target, words):
-    answer = 1004
-    
     def is_ok(a, b):
         n = len(a)
         cnt = 0
@@ -22,4 +20,4 @@ def solution(begin, target, words):
                 visited.add(word)
                 q.append([word, cnt+1])
             
-    return answer if answer != 1004 else 0
+    return 0
